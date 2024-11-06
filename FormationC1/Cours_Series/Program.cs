@@ -54,6 +54,8 @@ namespace Cours_Series
             IntegerDivision(12, -4);
             IntegerDivision(13, -4);
             IntegerDivision(12, 0);
+            Pow(2, 4);
+            Pow(4, -2);
             Console.ReadKey();
             
             
@@ -67,6 +69,7 @@ namespace Cours_Series
             if (b == 0)
             {
                 Console.WriteLine($"{a} : {b} = Opération invalide");
+                return;
             }
              
             r = a % b;
@@ -79,13 +82,29 @@ namespace Cours_Series
 
             }
             else
-            {r = a % b;
+            {
                 a = q * b + r;
                 Console.WriteLine($"{a} = {q} * {b} + {r}");
             }
                 
 
         }
-    }     
+        static void Pow(int a, int b)
+        {
+            int r;
+
+            if (b < 0)
+            {
+                Console.WriteLine($"{a} ^ {b} = Opération invalide");
+            }
+            else
+            {
+                r = (int) Math.Pow(a, b);
+                Console.WriteLine($"{a} ^ {b} = {r}");
+            }
+        }
+        
+    }   
+    
 
 }
