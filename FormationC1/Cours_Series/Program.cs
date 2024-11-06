@@ -56,6 +56,11 @@ namespace Cours_Series
             IntegerDivision(12, 0);
             Pow(2, 4);
             Pow(4, -2);
+            GoodDay(5);
+            GoodDay(10);
+            GoodDay(12);
+            GoodDay(15);
+            GoodDay(20);
             Console.ReadKey();
             
             
@@ -101,6 +106,29 @@ namespace Cours_Series
             {
                 r = (int) Math.Pow(a, b);
                 Console.WriteLine($"{a} ^ {b} = {r}");
+            }
+        }
+        static void GoodDay(int heure)
+        {
+            if (heure >= 0 && heure < 6)
+            {
+                Console.WriteLine($"Il est {heure} H, Merveulleuse nuit!");
+            }
+            else if (heure >= 6 && heure < 12)
+            {
+                Console.WriteLine($"Il est {heure} H, Bonne matinée!");
+            }
+            else if (heure == 12)
+            {
+                Console.WriteLine($"Il est {heure} H, Bon appétit!");
+            }
+            else if (heure >= 13 && heure <= 18)
+            {
+                Console.WriteLine($"Il est {heure} H, Profitez de votre après-midi!");
+            }
+            else if (heure > 18 && heure < 24)
+            {
+                Console.WriteLine($"Il est {heure} H, Passez une bonne soirée!");
             }
         }
         
