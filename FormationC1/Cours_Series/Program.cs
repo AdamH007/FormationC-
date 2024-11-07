@@ -82,6 +82,9 @@ namespace Cours_Series
 
             Console.WriteLine(FactorialRec(7) + "\n");
 
+            int[] tableau = new int[] { 7, 5, 3, 9, 5, 1, 8, 4, 2, 6, 0 };
+            Console.WriteLine(LinearSearch(tableau, 1));
+
             Console.ReadKey();
             
             
@@ -189,7 +192,6 @@ namespace Cours_Series
            
         }
         // Exercice 4 : Factorielle
-
         // Première question
         static int Factorial(int n)
         {
@@ -206,7 +208,6 @@ namespace Cours_Series
             return r;
         }
         // Exercice 4 : Factorielle
-
         // Deuxième question
         static int FactorialRec(int n)
         {
@@ -215,6 +216,20 @@ namespace Cours_Series
                 return 1;
             }
             return n * FactorialRec(n - 1);
+        }
+        // Série 2
+        // Exercice 1 : Recherche d'un élément
+        // Recherche linéaire
+        static int LinearSearch(int[] tableau, int valeur)
+        {
+            for (int i = 0; i < tableau.Length; i++)
+            {
+                if ( valeur == tableau[i])
+                {
+                    return i;
+                }
+            }
+            return -1;
         }
     }
 
