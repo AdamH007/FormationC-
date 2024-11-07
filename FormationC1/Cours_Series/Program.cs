@@ -8,6 +8,7 @@ namespace Cours_Series
 {
     class Program
     {
+        // Exercice 1 : Opérations de base
         static void BasicOperation(int a, int b, char operateur)
         {
             int r;
@@ -51,22 +52,43 @@ namespace Cours_Series
             BasicOperation(6, 2, '/');
             BasicOperation(3, 0, '/');
             BasicOperation(6, 9, 'L');
+
+            Console.WriteLine();
+
             IntegerDivision(12, -4);
             IntegerDivision(13, -4);
             IntegerDivision(12, 0);
+
+            Console.WriteLine();
+
             Pow(2, 4);
             Pow(4, -2);
+
+            Console.WriteLine();
+
             GoodDay(5);
             GoodDay(10);
             GoodDay(12);
             GoodDay(15);
             GoodDay(20);
+
+            Console.WriteLine();
+
+            PyramidConstruction(10, false);
+
+            Console.WriteLine();
+
+            Console.WriteLine(Factorial(5) + "\n");
+
+            Console.WriteLine(FactorialRec(7) + "\n");
+
             Console.ReadKey();
             
             
 
 
         }
+        // Exercice 1 : Division entière
         static void IntegerDivision(int a, int b)
         {
             int q; int r;
@@ -94,6 +116,7 @@ namespace Cours_Series
                 
 
         }
+        // Exercice 1 : Puissance entière
         static void Pow(int a, int b)
         {
             int r;
@@ -108,6 +131,7 @@ namespace Cours_Series
                 Console.WriteLine($"{a} ^ {b} = {r}");
             }
         }
+        // Exercice 2 : Horloge parlante
         static void GoodDay(int heure)
         {
             if (heure >= 0 && heure < 6)
@@ -131,8 +155,68 @@ namespace Cours_Series
                 Console.WriteLine($"Il est {heure} H, Passez une bonne soirée!");
             }
         }
-        
-    }   
-    
+        // Exercice 3 : Construction d'une pyramide
+        static void PyramidConstruction(int n, bool isSmooth)
+        {
+            if (isSmooth)
+            {
+                for (int j = 0; j < n; j++)
+                {
+                    Console.Write(new string(' ', n - j - 1));
+                    Console.Write(new string('+', j * 2 + 1));
+                    Console.WriteLine();
+                }
+            }
+            else
+            {
+                for (int j = 0; j < n; j++)
+                {
+                    Console.Write(new string(' ', n - j - 1));
+
+                    if (j % 2 == 0)
+                    {
+                        Console.Write(new string('+', j * 2 + 1));
+                        Console.WriteLine();
+                    }
+                    else 
+                    {
+                        Console.Write(new string('-', j * 2 + 1));
+                        Console.WriteLine();
+                    }
+
+                }
+            }
+           
+        }
+        // Exercice 4 : Factorielle
+
+        // Première question
+        static int Factorial(int n)
+        {
+            if (n == 0)
+            {
+                return 1;
+            }
+
+            int r = 1;
+            for (int i = 1; i <= n; i++)
+            {
+                r *= i;              
+            }
+            return r;
+        }
+        // Exercice 4 : Factorielle
+
+        // Deuxième question
+        static int FactorialRec(int n)
+        {
+            if (n == 0 || n == 1)
+            {
+                return 1;
+            }
+            return n * FactorialRec(n - 1);
+        }
+    }
+
 
 }
