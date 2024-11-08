@@ -82,8 +82,11 @@ namespace Cours_Series
 
             Console.WriteLine(FactorialRec(7) + "\n");
 
-            int[] tableau = new int[] { 7, 5, 3, 9, 5, 1, 8, 4, 2, 6, 0 };
-            Console.WriteLine(LinearSearch(tableau, 1));
+            int[] tableau = new int[] { 1, -5, 10, -3, 0, 4, 2, -7 };
+            Console.WriteLine(LinearSearch(tableau, 1) + "\n");
+
+            int[] tableauTri = new int[] { -7, -5, -3, 0, 1, 2, 4, 10 };
+            Console.WriteLine(BinarySearch(tableauTri, -8) + "\n");
 
             Console.ReadKey();
             
@@ -231,6 +234,40 @@ namespace Cours_Series
             }
             return -1;
         }
+        // Exercice 1 : Recherche d'un élément
+        // Recherche linéaire
+        static int BinarySearch(int[] tableau, int valeur)
+        {
+            int a = 0;
+            int b = tableau.Length;
+
+            if (b == 0)
+            {
+                return -1;
+            }
+
+            while (b > a)
+            {
+                int m = (a + b) / 2;
+                if (tableau[m] == valeur)
+                {
+                    return m;
+                }
+                else if (tableau[m] > valeur )
+                {
+                    b = m - 1;
+                }
+                else 
+                {
+                    a = m + 1;
+                }
+            }
+            return -1;
+        }
+        // Exercice 2 : Bases du calcul matriciel
+        //static int BuildingMatrix(int[] leftVector, int[] rightVector)
+        //   [
+        //   ]
     }
 
 
