@@ -235,7 +235,7 @@ namespace Cours_Series
             return -1;
         }
         // Exercice 1 : Recherche d'un élément
-        // Recherche linéaire
+        // Recherche dichotomique
         static int BinarySearch(int[] tableau, int valeur)
         {
             int a = 0;
