@@ -8,44 +8,24 @@ namespace Cours_Series
 {
     class Program
     {
-        // Exercice 1 : Opérations de base
-        static void BasicOperation(int a, int b, char operateur)
+        //Fonction d'affichage de la matrice
+        static void DisplayMatrix(int[,] matrice)
         {
-            int r;
-            switch (operateur)
+            if (matrice == null)
             {
-                case '+':
-                    r = a + b;
-                    Console.WriteLine(a + " " + operateur + " " + b + " = " + r);
-                    break;
-                case '-':
-                    r = a - b;
-                    Console.WriteLine(a + " " + operateur + " " + b + " = " + r);
-                    break;
-                case '*':
-                    r = a * b;
-                    Console.WriteLine(a + " " + operateur + " " + b + " = " + r);
-                    break;
-                case '/':
-                    if (b == 0)
-                    {
-                        Console.WriteLine(a + " " + operateur + " " + b + " = " + "Opération invalide");
-                        break;
-                    }
-                    else
-                    {
-                        r = a / b;
-                        Console.WriteLine(a + " " + operateur + " " + b + " = " + r);
-                        break;
-                    }
-                default:
-                    Console.WriteLine(a + " " + operateur + " " + b + " = " + "Opération invalide");
-                    break;
-
+                Console.WriteLine("Multiplication impossible");
+                return;
             }
-
+            for (int i = 0; i < matrice.GetLength(0); i++)
+            {
+                for (int j = 0; j < matrice.GetLength(1); j++)
+                {
+                    Console.Write($"{matrice[i, j]}  ");   
+                }
+                Console.WriteLine();
+            }
+            Console.WriteLine();
         }
-
         static void Main(string[] args)
         {
             BasicOperation(3, 4, '+');
@@ -88,10 +68,65 @@ namespace Cours_Series
             int[] tableauTri = new int[] { -7, -5, -3, 0, 1, 2, 4, 10 };
             Console.WriteLine(BinarySearch(tableauTri, -8) + "\n");
 
+            int[] leftVector = new int[] { 1, 2, 3 };
+            int[] rightVector = new int[] { -1, -4, 0 };
+            int[,] matrice = BuildingMatrix(leftVector,rightVector);
+            DisplayMatrix(matrice);
+
+            int[,] leftMatrix = new int[,] { { 1, 2 }, { 4, 6 }, { -1, 8 } };
+            int[,] rightMatrix = new int[,] { { -1, 5 }, { -4, 0 }, { 0, 2 } };
+            int[,] amatrix = Addition(leftMatrix, rightMatrix);
+            DisplayMatrix(amatrix);
+
+            int[,] smatrix = Substraction(leftMatrix, rightMatrix);
+            DisplayMatrix(smatrix);
+
+            int[,] mleftMatrix = new int[,] { { 1, 2 }, { 4, 6 }, { -1, 8 } };
+            int[,] mrightMatrix = new int[,] { { -1, 5, 0 }, { -4, 0, 1 } };
+            int[,] mmatrix = Multiplication(mleftMatrix, mrightMatrix);
+            DisplayMatrix(mmatrix);
+
             Console.ReadKey();
             
             
 
+
+        }
+        // Exercice 1 : Opérations de base
+        static void BasicOperation(int a, int b, char operateur)
+        {
+            int r;
+            switch (operateur)
+            {
+                case '+':
+                    r = a + b;
+                    Console.WriteLine(a + " " + operateur + " " + b + " = " + r);
+                    break;
+                case '-':
+                    r = a - b;
+                    Console.WriteLine(a + " " + operateur + " " + b + " = " + r);
+                    break;
+                case '*':
+                    r = a * b;
+                    Console.WriteLine(a + " " + operateur + " " + b + " = " + r);
+                    break;
+                case '/':
+                    if (b == 0)
+                    {
+                        Console.WriteLine(a + " " + operateur + " " + b + " = " + "Opération invalide");
+                        break;
+                    }
+                    else
+                    {
+                        r = a / b;
+                        Console.WriteLine(a + " " + operateur + " " + b + " = " + r);
+                        break;
+                    }
+                default:
+                    Console.WriteLine(a + " " + operateur + " " + b + " = " + "Opération invalide");
+                    break;
+
+            }
 
         }
         // Exercice 1 : Division entière
@@ -265,9 +300,72 @@ namespace Cours_Series
             return -1;
         }
         // Exercice 2 : Bases du calcul matriciel
-        //static int BuildingMatrix(int[] leftVector, int[] rightVector)
-        //   [
-        //   ]
+        // Construction matricielle
+        static int[,] BuildingMatrix(int[] leftVector, int[] rightVector)
+        {
+            int[,] matrice = new int[leftVector.Length,rightVector.Length] ;
+
+            for (int i = 0; i < leftVector.Length; i++)
+            {
+                for (int j = 0; j < rightVector.Length; j++)
+                {
+                    matrice[i,j] = leftVector[i] * rightVector[j];
+                }
+            }
+            return matrice;
+        }
+        // Exercice 2 : Bases du calcul matriciel
+        // Addition
+        static int[,] Addition(int[,] leftMatrix, int[,] rightMatrix)
+        {
+            int[,] amatrix = new int[leftMatrix.GetLength(0), rightMatrix.GetLength(1)];
+
+            for (int i = 0; i < leftMatrix.GetLength(0); i++)
+            {
+                for (int j = 0; j < leftMatrix.GetLength(1); j++)
+                {
+                    amatrix[i, j] = leftMatrix[i,j] + rightMatrix[i,j];
+                }
+            }
+            return amatrix;
+        }
+        // Exercice 2 : Bases du calcul matriciel
+        // Soustraction
+        static int[,] Substraction(int[,] leftMatrix, int[,] rightMatrix)
+        {
+            int[,] smatrix = new int[leftMatrix.GetLength(0), rightMatrix.GetLength(1)];
+
+            for (int i = 0; i < leftMatrix.GetLength(0); i++)
+            {
+                for (int j = 0; j < leftMatrix.GetLength(1); j++)
+                {
+                    smatrix[i, j] = leftMatrix[i, j] - rightMatrix[i, j];
+                }
+            }
+            return smatrix;
+        }
+        // Exercice 2 : Bases du calcul matriciel
+        // Soustraction
+        static int[,] Multiplication(int[,] leftMatrix, int[,] rightMatrix)
+        {
+            int[,] mmatrix = new int[leftMatrix.GetLength(0), rightMatrix.GetLength(1)];
+
+            for (int i = 0; i < leftMatrix.GetLength(0); i++)
+            {
+                for (int j = 0; j < leftMatrix.GetLength(1); j++)
+                {
+                    if (i != j)
+                    {
+                        return null;
+                    }
+                    else
+                    {
+                        mmatrix[i, j] = leftMatrix[i, j] * rightMatrix[i, j];
+                    }
+                }
+            }
+            return mmatrix;
+        }
     }
 
 
