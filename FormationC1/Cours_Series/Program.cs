@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
 
 namespace Cours_Series
 {
@@ -86,12 +87,15 @@ namespace Cours_Series
             int[,] mmatrix = Multiplication(mleftMatrix, mrightMatrix);
             DisplayMatrix(mmatrix);
 
+            SchoolMeans("../../Files/notes.csv", "../../Files/moyenne.csv");
+
             Console.ReadKey();
             
             
 
 
         }
+        // SérieI
         // Exercice 1 : Opérations de base
         static void BasicOperation(int a, int b, char operateur)
         {
@@ -255,7 +259,7 @@ namespace Cours_Series
             }
             return n * FactorialRec(n - 1);
         }
-        // Série 2
+        // Série II
         // Exercice 1 : Recherche d'un élément
         // Recherche linéaire
         static int LinearSearch(int[] tableau, int valeur)
@@ -345,7 +349,7 @@ namespace Cours_Series
             return smatrix;
         }
         // Exercice 2 : Bases du calcul matriciel
-        // Soustraction
+        // Multiplication
         static int[,] Multiplication(int[,] leftMatrix, int[,] rightMatrix)
         {
             int[,] mmatrix = new int[leftMatrix.GetLength(0), rightMatrix.GetLength(1)];
@@ -365,6 +369,50 @@ namespace Cours_Series
                 }
             }
             return mmatrix;
+        }
+        // Série III
+        // Exercice 1 : Conseil de classe
+        static void SchoolMeans(string input, string output)
+        {
+            if (!File.Exists(input))
+            {
+                return;
+            }
+            // Dictionnaire pour les matières et la somme des notes
+            Dictionary<string, double> dict1 = new Dictionary<string, double>();
+            // Dictionnaire pour les matières et le nombre des notes
+            Dictionary<string, int> dict2 = new Dictionary<string, int>();
+            // Ouvrir le fichier
+            using (FileStream file1 = File.OpenRead(input))
+            // Déclaration de l'outil qui sert à lire le fichier
+            using (StreamReader file2 = new StreamReader(file1))
+            {
+                while (!file2.EndOfStream)
+                {
+                    string[] ligne = file2.ReadLine().Split(';');
+                    if (dict1.ContainsKey(ligne[1]))
+                    {
+                        dict1[ligne[1]] += double.Parse(ligne[2]);
+                        dict2[ligne[1]]++;
+                    }
+                    else
+                    {
+                        dict1.Add(ligne[1], double.Parse(ligne[2]));
+                        dict2.Add(ligne[1], 1);
+                    }
+                }
+            }
+            // Création du fichier de sortie et calcul de la moyenne
+            using (FileStream file3 = File.Create(output))
+            using (StreamWriter file4 = new StreamWriter(file3))
+            {
+                foreach (KeyValuePair<string, double> item in dict1)
+                {
+                    double moy = item.Value / dict2[item.Key];
+                    file4.WriteLine($"{item.Key};{moy:0.0}");
+                }
+            }
+
         }
     }
 
