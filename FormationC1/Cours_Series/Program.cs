@@ -89,6 +89,8 @@ namespace Cours_Series
 
             SchoolMeans("../../Files/notes.csv", "../../Files/moyenne.csv");
 
+            Console.WriteLine(BracketsControls("(S(M[O{R[D(O et G)A]E}T]A)N)"));
+
             Console.ReadKey();
             
             
@@ -413,6 +415,37 @@ namespace Cours_Series
                 }
             }
 
+        }
+        // Série IV
+        // Exercice 1 : Contrôle des parenthèses
+        static bool BracketsControls(string sentence)
+        {
+            Stack<char> par = new Stack<char>();
+            
+            foreach(char c in sentence)
+            {
+                if (c == '(' || c == '[' || c == '{')
+                {
+                    par.Push(c);
+                }
+                else if (c == ')' || c == ']' || c == '}')
+                {
+                    if (par.Count == 0)
+                    {
+                        return false;
+                    }
+
+                    char OpenBracket = par.Pop();
+
+                    if (c == ')' && OpenBracket != '(' ||
+                        c == ']' && OpenBracket != '[' ||
+                        c == '}' && OpenBracket != '{')
+                    {
+                        return false;
+                    }
+                }
+            }
+            return par.Count == 0;
         }
     }
 
