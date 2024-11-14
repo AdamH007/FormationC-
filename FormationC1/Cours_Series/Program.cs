@@ -14,7 +14,7 @@ namespace Cours_Series
         {
             if (matrice == null)
             {
-                Console.WriteLine("Multiplication impossible");
+                Console.WriteLine("Multiplication impossible" + "\n");
                 return;
             }
             for (int i = 0; i < matrice.GetLength(0); i++)
@@ -89,7 +89,9 @@ namespace Cours_Series
 
             SchoolMeans("../../Files/notes.csv", "../../Files/moyenne.csv");
 
-            Console.WriteLine(BracketsControls("(S(M[O{R[D(O et G)A]E}T]A)N)"));
+            Console.WriteLine(BracketsControls("(S(M[O{R[D(O et G)A]E}T]A)N)") + "\n");
+
+            Console.WriteLine(IsValidPhoneNumber("0638044782") + "\n");
 
             Console.ReadKey();
             
@@ -446,6 +448,37 @@ namespace Cours_Series
                 }
             }
             return par.Count == 0;
+        }
+        // Série IV
+        // Exercice 2 : Liste des contacts téléphoniques
+        struct PhoneBook
+        {
+            private Dictionary<string, string> annuaire;
+
+            static bool IsValidPhoneNumber(string phoneNumber)
+            {
+                if (phoneNumber.Length != 10)
+                {
+                    return false;
+                }
+                foreach (char n in phoneNumber)
+                {
+                    if (!char.IsDigit(n))
+                    {
+                        return false;
+                    }
+                }
+                if (phoneNumber[0] != '0' || phoneNumber[1] == '0')
+                {
+                    return false;
+                }
+                return true;
+            }
+
+            static bool ContainsPhoneContact(string phoneNumber)
+            {
+
+            }
         }
     }
 
