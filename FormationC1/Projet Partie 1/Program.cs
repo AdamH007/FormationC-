@@ -10,13 +10,18 @@ namespace Projet_Partie_1
     {
         static void Main(string[] args)
         {
-            var banque = new Banque();
+            Banque banque = new Banque();
 
             //Charger les comptes
-            banque.ChargerComptes("Comptes.csv");
+            banque.ChargerComptes("../../Compte.csv");
 
             // Charger les transactions
-            banque.ChargerTransactions("Transactions.csv");
+            banque.ChargerTransactions("../../Transaction.csv");
+
+            // Créer le fichier de sortie
+            banque.effectuerToutesLesTransactions("../../StatutTransactions.csv");
+
+            Console.ReadKey();
         }
     }
 }
