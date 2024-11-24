@@ -64,7 +64,7 @@ namespace Projet_Partie_1
                     string[] ligne = Comptes.ReadLine().Split(';');
                     uint identifiantCompte;
                     decimal solde;
-                    if (ligne.Length == 2 && uint.TryParse(ligne[0], out identifiantCompte) && identifiantCompte != 0 && (decimal.TryParse(ligne[1],NumberStyles.AllowDecimalPoint,CultureInfo.GetCultureInfo("en-US"), out solde) || ligne[1] == string.Empty))
+                    if (ligne.Length == 2 && uint.TryParse(ligne[0], out identifiantCompte) && identifiantCompte != 0 && (decimal.TryParse(ligne[1], NumberStyles.AllowDecimalPoint, CultureInfo.GetCultureInfo("en-US"), out solde) || ligne[1] == string.Empty))
                     {
                         if (ligne[1] == string.Empty)
                         {
@@ -122,12 +122,12 @@ namespace Projet_Partie_1
 
                     }
                 }
-            }    
+            }
         }
 
         private bool effectuerUneTransaction(Transaction transaction)
         {
-            if (!VerifCompteExist(transaction.Transmetteur) & transaction.Transmetteur != 0 || !VerifCompteExist(transaction.Recepteur)  & transaction.Recepteur != 0)
+            if (!VerifCompteExist(transaction.Transmetteur) & transaction.Transmetteur != 0 || !VerifCompteExist(transaction.Recepteur) & transaction.Recepteur != 0)
             {
                 Console.WriteLine("Un des comptes n'existe pas");
                 return false;
@@ -138,22 +138,28 @@ namespace Projet_Partie_1
 
             if (transaction.Transmetteur == 0)
             {
-                recepteur = _comptes[transaction.Recepteur];
-                if (recepteur.VerifDepot(transaction.Montant))
+                if (_comptes.ContainsKey(transaction.Recepteur))
                 {
-                    recepteur.Depot(transaction.Montant);
-                    return true;
+                    recepteur = _comptes[transaction.Recepteur];
+                    if (recepteur.VerifDepot(transaction.Montant))
+                    {
+                        recepteur.Depot(transaction.Montant);
+                        return true;
+                    }
                 }
                 return false;
             }
 
             if (transaction.Recepteur == 0)
             {
-                transmetteur = _comptes[transaction.Transmetteur];
-                if(transmetteur.VerifRetrait(transaction.Montant))
+                if (_comptes.ContainsKey(transaction.Transmetteur))
                 {
-                    transmetteur.Retrait(transaction.Montant);
-                    return true;
+                    transmetteur = _comptes[transaction.Transmetteur];
+                    if (transmetteur.VerifRetrait(transaction.Montant))
+                    {
+                        transmetteur.Retrait(transaction.Montant);
+                        return true;
+                    }
                 }
                 return false;
             }
@@ -166,7 +172,7 @@ namespace Projet_Partie_1
                 transmetteur.Retrait(transaction.Montant);
                 recepteur.Depot(transaction.Montant);
                 return true;
-            }           
+            }
             return false;
         }
     }
