@@ -95,7 +95,7 @@ namespace Projet_Partie_1
                     decimal solde;
                     uint transmetteur;
                     uint recepteur;
-                    if (ligne.Length == 4 && uint.TryParse(ligne[0], out identifiantCompte) && decimal.TryParse(ligne[1], NumberStyles.AllowDecimalPoint, CultureInfo.GetCultureInfo("en-US"), out solde) && uint.TryParse(ligne[2], out transmetteur) && uint.TryParse(ligne[3], out recepteur))
+                    if (ligne.Length == 4 && uint.TryParse(ligne[0], out identifiantCompte) && decimal.TryParse(ligne[1], NumberStyles.AllowDecimalPoint | NumberStyles.AllowLeadingSign, CultureInfo.GetCultureInfo("en-US"), out solde) && uint.TryParse(ligne[2], out transmetteur) && uint.TryParse(ligne[3], out recepteur))
                     {
                         Transaction transaction = new Transaction(identifiantCompte, solde, transmetteur, recepteur);
                         AjouterTransaction(transaction);

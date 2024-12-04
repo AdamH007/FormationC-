@@ -13,10 +13,10 @@ namespace Projet_Partie_1
             Banque banque = new Banque();
 
             //Charger les comptes
-            banque.ChargerComptes("../../Compte.csv");
+            banque.ChargerComptes("../../Comptes_1.txt");
 
             // Charger les transactions
-            banque.ChargerTransactions("../../Transaction.csv");
+            banque.ChargerTransactions("../../Transactions_1.txt");
 
             // Créer le fichier de sortie
             banque.effectuerToutesLesTransactions("../../StatutTransactions.csv");
