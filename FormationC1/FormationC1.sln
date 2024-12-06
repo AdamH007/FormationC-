@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Percolation", "Percolation\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Projet Partie 1", "Projet Partie 1\Projet Partie 1.csproj", "{0B170488-995B-45E0-966A-8C5222063937}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Projet Partie 2", "Projet Partie 2\Projet Partie 2.csproj", "{10F9F006-86E1-4193-898B-67D6F728DE1E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{0B170488-995B-45E0-966A-8C5222063937}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0B170488-995B-45E0-966A-8C5222063937}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0B170488-995B-45E0-966A-8C5222063937}.Release|Any CPU.Build.0 = Release|Any CPU
+		{10F9F006-86E1-4193-898B-67D6F728DE1E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{10F9F006-86E1-4193-898B-67D6F728DE1E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{10F9F006-86E1-4193-898B-67D6F728DE1E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{10F9F006-86E1-4193-898B-67D6F728DE1E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
