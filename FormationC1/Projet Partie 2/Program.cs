@@ -9,13 +9,13 @@ namespace Projet_Partie_2
             Banque banque = new Banque();
 
             // Création de gestionnaires
-            banque.AjouterGestionnaire("../../Comptes_1.txt");
+            banque.AjouterGestionnaire('Gestionnaire.csv');
 
             // Création de comptes
-            banque.CreerCompte();
+            banque.CreerCompte("Comptes.csv");
 
             // Création d'une transaction de virement
-            banque.ExecuterTransaction();
+            banque.ExecuterTransaction("Transaction.csv");
 
             // Affichage des métriques
             Console.WriteLine($"Statistiques :");

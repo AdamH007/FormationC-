@@ -8,7 +8,7 @@ namespace Projet_Partie_2
 {
     class Compte
     {
-        public int NumeroCompte { get; set; }
+        public uint NumeroCompte { get; set; }
         public double Solde { get; private set; }
         public Gestionnaire Proprietaire { get; set; }
 
@@ -21,7 +21,7 @@ namespace Projet_Partie_2
         public DateTime DateCreation { get; private set; }
         public DateTime DateResiliation { get; private set; }
 
-        public Compte(int numero, Gestionnaire proprietaire, double soldeInitial = 0.0)
+        public Compte(uint numero, Gestionnaire proprietaire, double soldeInitial = 0.0)
         {
             NumeroCompte = numero;
             Proprietaire = proprietaire;

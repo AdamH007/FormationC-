@@ -8,9 +8,15 @@ namespace Projet_Partie_2
 {
     class Gestionnaire
     {
-        public int Id { get; set; }
+        public enum TypeGestionnaire
+        {
+            Particulier,
+            Entreprise
+        }
+
+        public uint Id { get; set; }
         public TypeGestionnaire Type { get; set; }
-        public string Nom { get; set; }
+        public uint NombreTransMax { get; set; }
 
         public double CalculerFraisGestion(List<Compte> comptesGerés)
         {
@@ -26,10 +32,10 @@ namespace Projet_Partie_2
             }
         }
 
-        public Gestionnaire(int id, string nom, TypeGestionnaire type)
+        public Gestionnaire(uint id, string nom, TypeGestionnaire type)
         {
             Id = id;
-            Nom = nom;
+            NombreTransMax = nombreTransMax;
             Type = type;
         }
 

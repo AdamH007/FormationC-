@@ -14,7 +14,7 @@ namespace Projet_Partie_2
     }
     class Transaction
     {
-        public int Id { get; private set; }
+        public uint Id { get; private set; }
         public TypeTransaction Type { get; private set; }
         public Compte CompteSource { get; private set; }
         public Compte CompteDestination { get; private set; }
@@ -23,8 +23,8 @@ namespace Projet_Partie_2
         public DateTime DateExecution { get; private set; }
         public bool EstReussie { get; set; }
         public DateTime DateExpiration { get; private set; }
-    
-        public Transaction(int id, TypeTransaction type, double montant, Compte source = null, Compte destination = null)
+
+        public Transaction(uint id, TypeTransaction type, double montant, Compte source = null, Compte destination = null)
         {
             Id = id;
             Type = type;
@@ -73,3 +73,4 @@ namespace Projet_Partie_2
             DateExecution = DateTime.Now;
         }
     }
+}
