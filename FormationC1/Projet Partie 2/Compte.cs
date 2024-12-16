@@ -8,105 +8,81 @@ namespace Projet_Partie_2
 {
     class Compte
     {
-        public uint IdentifiantCompte { get; private set; }
-        public decimal Solde { get; private set; }
-        private const decimal _maxRetrait = 1000;
-        public DateTime DateCreation { get; set; }
-        public DateTime DateResiliation { get; set; }
-        public int NombreTransMaxRetrait { get; set; }
-        private const decimal _maxRetraitUneSemaine = 2000;
-        private TimeSpan _semaineMaxRetrait = new TimeSpan(7, 0, 0, 0);
-        private List<Decimal> _historique = new List<Decimal>();
-        private List<KeyValuePair<decimal, DateTime>> _historiqueUneSemaine;
+        public int NumeroCompte { get; set; }
+        public double Solde { get; private set; }
+        public Gestionnaire Proprietaire { get; set; }
 
-        public Compte(uint identifiantCompte, DateTime dateCreation, DateTime dateResiliation, int nombreTransMaxRertrait, decimal solde = 0)
+        private List<Transaction> HistoriqueTransactions = new List<Transaction>();
+
+        public int NombreMaxDerniersRetraits { get; set; } = 10;
+        public double LimiteRetraitSurPeriode { get; set; } = 2000;
+        public TimeSpan PeriodeRetrait = TimeSpan.FromDays(7);
+
+        public DateTime DateCreation { get; private set; }
+        public DateTime DateResiliation { get; private set; }
+
+        public Compte(int numero, Gestionnaire proprietaire, double soldeInitial = 0.0)
         {
-            IdentifiantCompte = identifiantCompte;
-            DateCreation = dateCreation;
-            DateResiliation = dateResiliation;
-            NombreTransMaxRetrait = nombreTransMaxRertrait;
-            Solde = solde;
+            NumeroCompte = numero;
+            Proprietaire = proprietaire;
+            Solde = soldeInitial;
+            DateCreation = DateTime.Now;
         }
 
-        private bool MaxRetrait(decimal montant)
+        public void Deposer(double montant)
         {
-            decimal totalRetraits = montant;
-            for (int i = 0; i < NombreTransMaxRetrait - 1 && i < _historique.Count(); i++)
-            {
-                totalRetraits += _historique[i];
-            }
-            if (totalRetraits > _maxRetrait)
-            {
-                return true;
-            }
-            return false;
-        }
-
-        private bool MaxRetraitUneSemaine(decimal montant, DateTime dateEffet)
-        {
-            decimal totalRetraits = montant;
-            foreach (KeyValuePair<decimal, DateTime> retrait in _historiqueUneSemaine)
-            {
-                if (retrait.Value <= dateEffet && dateEffet - retrait.Value < _semaineMaxRetrait && retrait.Value >= DateCreation && retrait.Value < DateResiliation)
-                {
-                    totalRetraits += retrait.Key;
-                }
-            }
-            if (totalRetraits > _maxRetraitUneSemaine)
-            {
-                return true;
-            }
-            return false;
-        }
-                  
-
-        public void AjoutHistorique(decimal trans)
-        {
-            _historique.Add(trans);
-        }
-
-        public void AjoutHistoriqueUneSemaine(decimal trans, DateTime dateEffet)
-        {
-            _historiqueUneSemaine.Add(new KeyValuePair<decimal, DateTime>(trans, dateEffet));
-        }
-
-        public bool VerifDepot(Transaction transaction)
-        {
-            if (transaction.Montant <= 0 || transaction.DateEffet <= DateCreation || transaction.DateEffet >= DateResiliation )
-            {
-                return false;
-            }
-            return true;
-        }
-
-        public bool VerifRetrait(decimal montant)
-        {
-            if (montant <= 0)
-            {
-                Console.WriteLine("Le montant est négatif!");
-                return false;
-            }
-            else if (montant > Solde)
-            {
-                Console.WriteLine("Solde insuffisant!");
-                return false;
-            }
-
-            return true;
-        }
-
-        public void Depot(decimal montant)
-        {
+            if (!EstActif()) return;
             Solde += montant;
         }
 
-        public void Retrait(decimal montant, DateTime dateEffet)
+        public bool Retirer(double montant)
         {
+            if (!EstActif()) return false;
+
+            if (Solde < montant) return false;
+
+            if (!PeutRetirer(montant)) return false;
+
             Solde -= montant;
-            AjoutHistorique(montant);
-            AjoutHistoriqueUneSemaine(montant, dateEffet);
+            return true;
         }
 
+        private bool EstActif()
+        {
+            if (DateResiliation.HasValue && DateResiliation.Value < DateTime.Now)
+            {
+                return false;
+            }
+            return true;
+        }
 
+        public void Resilier()
+        {
+            DateResiliation = DateTime.Now;
+        }
+
+        public void AjouterTransactionHistorique(Transaction t)
+        {
+            HistoriqueTransactions.Add(t);
+        }
+
+        private bool PeutRetirer(double montant)
+        {
+            var retraitsRecents = HistoriqueTransactions
+                .Where(t => t.Type == TypeTransaction.Retrait && t.EstReussie)
+                .OrderByDescending(t => t.DateExecution)
+                .Take(NombreMaxDerniersRetraits);
+
+            var maintenant = DateTime.Now;
+            var retraitsDansPeriode = HistoriqueTransactions
+                .Where(t => t.Type == TypeTransaction.Retrait && t.EstReussie && t.DateExecution.HasValue)
+                .Where(t => (maintenant - t.DateExecution.Value) <= PeriodeRetrait)
+                .Sum(t => t.Montant);
+
+            if (retraitsDansPeriode + montant > LimiteRetraitSurPeriode)
+                return false;
+
+            return true;
+        }
     }
 }
